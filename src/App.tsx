@@ -1,7 +1,6 @@
 import { Button } from '@/components/ui/button/button'
 import { Icon } from '@/components/icons/iconwrapper'
 import { Typography } from '@/components/typography'
-import { Input } from '@/components/ui/input/input'
 
 export function App() {
   return (
@@ -22,13 +21,6 @@ export function App() {
           h1
         </Typography>
 
-        <hr />
-        <Input
-          label={'Input'}
-          placeholder={'Enter your password'}
-          type={'text'}
-          variant={'right'}
-        />
         <hr />
       </div>
     </div>
