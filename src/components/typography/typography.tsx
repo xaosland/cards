@@ -13,7 +13,7 @@ export type TypographyType<T extends ElementType> = {
 export const Typography = <T extends ElementType>(props: TypographyType<T>) => {
   const { as: TagName, children, className, theme = '', variant, ...rest } = props
   const typographyClassName = `${s.typography} ${s[variant]} ${theme === 'dark' ? s.dark : ''}`
-
+  const number = 0
   const Component = TagName || Variants[variant] || 'span'
   return (
     <Component className={typographyClassName} {...rest}>
