@@ -1,0 +1,65 @@
+﻿.input {
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+  height: 36px;
+  background-color: var(--color-dark-900);
+  outline: none;
+
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: var(--color-dark-100);
+}
+
+.primary {
+  background: var(--color-accent-500);
+
+  &:hover {
+    background: var(--color-accent-300);
+  }
+
+  &:active {
+    background: var(--color-accent-700);
+  }
+
+  &:focus-visible {
+    border: 2px solid var(--color-info-700);
+    background: var(--color-accent-500);
+  }
+
+  &:disabled {
+    color: var(--color-light-900);
+  }
+}
+
+.secondary {
+  box-shadow: 0 2px 10px 0 rgba(109, 109, 109, 0.25);
+  background: var(--color-dark-300);
+
+  &:hover {
+    background: var(--color-dark-100);
+  }
+
+  &:active {
+    background: var(--color-dark-500);
+  }
+
+  &:focus-visible {
+    border: 2px solid var(--color-info-700);
+    background: var(--color-dark-300);
+  }
+
+  &:disabled {
+    background: var(--color-dark-300);
+    color: var(--color-light-900);
+  }
+}
+
+Button {
+  all: unset;
+  cursor: pointer;
+  margin-left: 10px;
+  margin-right: 10px;
+  top: 5px;
+}
