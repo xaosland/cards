@@ -10,18 +10,8 @@ export type TypographyType<T extends ElementType> = {
   variant: VariantsType
 } & ComponentPropsWithoutRef<T>
 
-export const Typography = <T extends ElementType>(props: TypographyType<T>) => {
-  const { as: TagName, children, className, theme = '', variant, ...rest } = props
-  const typographyClassName = `${s.typography} ${s[variant]} ${theme === 'dark' ? s.dark : ''}`
-
-  const Component = TagName || Variants[variant] || 'span'
-  return (
-    <Component className={typographyClassName} {...rest}>
-      {children}
-    </Component>
-  )
-}
 type VariantsType = keyof typeof Variants
+
 const Variants = {
   body1: 'p',
   body2: 'p',
@@ -37,3 +27,15 @@ const Variants = {
   subtitle1: 'p',
   subtitle2: 'p',
 } as const
+
+export const Typography = <T extends ElementType>(props: TypographyType<T>) => {
+  const { as: TagName, children, className, theme = '', variant, ...rest } = props
+  const typographyClassName = `${s.typography} ${s[variant]} ${theme === 'dark' ? s.dark : ''}`
+
+  const Component = TagName || Variants[variant] || 'span'
+  return (
+    <Component className={typographyClassName} {...rest}>
+      {children}
+    </Component>
+  )
+}

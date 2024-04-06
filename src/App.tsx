@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button/button'
-import { Icon } from '@/components/icons/iconwrapper'
 import { Typography } from '@/components/typography'
 
 export function App() {
@@ -8,9 +7,7 @@ export function App() {
       style={{ alignItems: 'center', display: 'flex', height: '100svh', justifyContent: 'center' }}
     >
       <div>
-        <Button variant={'primary'}>
-          &nbsp;
-          <Icon fill={'red'} iconId={'star'} size={18} />
+        <Button variant={'primary'} icon={false}>
           <Typography theme={'light'} variant={'subtitle2'}>
             Button primary
           </Typography>

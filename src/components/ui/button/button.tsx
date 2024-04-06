@@ -2,26 +2,25 @@ import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
 import s from './button.module.scss'
 
+import { Icon } from '@/components/icons/iconwrapper'
+
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
   children: ReactNode
   className?: string
   fullWidth?: boolean
-  icon?: ReactNode
+  icon?: boolean
   onClick?: () => void
   variant?: 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
-  const onClickHandler = () => {
-    console.log('hello')
-  }
   const {
     as: Component = 'button',
+    children,
     className,
     fullWidth,
     icon,
-    onClick,
     variant = 'primary',
     ...rest
   } = props
@@ -31,11 +30,10 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
       className={`${s.button} ${variant === 'primary' ? s.primary : s.secondary} ${
         fullWidth ? s.fullWidth : ''
       } ${className}`}
-      onClick={onClickHandler}
       {...rest}
     >
-      {icon && <span className={s.icon}>{icon}</span>}
-      {props.children}
+      {icon && <Icon iconId={'arrow'} size={16} />}
+      {children}
     </Component>
   )
 }
