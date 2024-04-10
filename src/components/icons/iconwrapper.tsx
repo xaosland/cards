@@ -6,10 +6,12 @@ type IconPropsType = {
   iconId: string
   size: number
   viewBox?: string
+  className: string
+  onClick?: () => void
 }
 
 export const Icon = (props: IconPropsType) => {
-  const { fill = '#fff', iconId, size, viewBox } = props
+  const { fill = '#fff', iconId, size, className, viewBox, onClick, ...rest } = props
   return (
     <svg
       fill={'none'}
@@ -17,7 +19,8 @@ export const Icon = (props: IconPropsType) => {
       viewBox={viewBox || '0 0 24 24'}
       width={size}
       xmlns={'http://www.w3.org/2000/svg'}
-      className={'icons'}
+      className={className}
+      onClick={onClick}
     >
       <use fill={fill} xlinkHref={`${iconsSprite}#${iconId} `} />
     </svg>

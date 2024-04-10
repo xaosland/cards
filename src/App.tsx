@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button/button'
 import { Typography } from '@/components/typography'
+import SearchInput from '@/components/ui/input/input'
 
 export function App() {
   return (
@@ -7,18 +8,13 @@ export function App() {
       style={{ alignItems: 'center', display: 'flex', height: '100svh', justifyContent: 'center' }}
     >
       <div>
-        <Button variant={'primary'} icon={false}>
+        <Button variant={'primary'} icon={true}>
           <Typography theme={'light'} variant={'subtitle2'}>
             Button primary
           </Typography>
         </Button>
-
-        <hr />
-        <Typography theme={'light'} variant={'h2'}>
-          h1
-        </Typography>
-
-        <hr />
+        <p></p>
+        <SearchInput />
       </div>
     </div>
   )

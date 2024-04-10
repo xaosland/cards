@@ -2,7 +2,7 @@ import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
 import s from './button.module.scss'
 
-import { Icon } from '@/components/icons/iconwrapper'
+import SvgMicOutline from '@/assets/icons/components/MicOutline'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
@@ -11,7 +11,7 @@ export type ButtonProps<T extends ElementType = 'button'> = {
   fullWidth?: boolean
   icon?: boolean
   onClick?: () => void
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'default'
 } & ComponentPropsWithoutRef<T>
 
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
@@ -21,18 +21,18 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
     className,
     fullWidth,
     icon,
-    variant = 'primary',
+    variant = 'default',
     ...rest
   } = props
 
   return (
     <Component
-      className={`${s.button} ${variant === 'primary' ? s.primary : s.secondary} ${
+      className={`${s.button} ${variant === 'primary' ? s.primary : variant === 'secondary' ? s.secondary : s.default} ${
         fullWidth ? s.fullWidth : ''
       } ${className}`}
       {...rest}
     >
-      {icon && <Icon iconId={'arrow'} size={16} />}
+      {icon && <SvgMicOutline className={s.ico} />}
       {children}
     </Component>
   )

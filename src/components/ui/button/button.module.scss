@@ -13,6 +13,10 @@
   box-shadow: 0 4px 18px 0 rgb(140 97 255 / 35%);
 }
 
+.default {
+  all: unset;
+}
+
 .primary {
   background: var(--color-accent-500);
 
@@ -62,4 +66,9 @@
   box-sizing: border-box;
   width: 100%;
   max-width: 100%;
+}
+
+.ico {
+  width: 16px;
+  height: 16px;
 }
