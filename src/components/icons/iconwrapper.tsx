@@ -21,6 +21,7 @@ export const Icon = (props: IconPropsType) => {
       xmlns={'http://www.w3.org/2000/svg'}
       className={className}
       onClick={onClick}
+      {...rest}
     >
       <use fill={fill} xlinkHref={`${iconsSprite}#${iconId} `} />
     </svg>

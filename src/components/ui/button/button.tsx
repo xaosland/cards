@@ -1,29 +1,19 @@
 import { ComponentPropsWithoutRef, ElementType, ReactNode } from 'react'
 
 import s from './button.module.scss'
-
-import SvgMicOutline from '@/assets/icons/components/MicOutline'
+import Search from '@/assets/icons/components/Search'
+import LogOut from '@/assets/icons/components/LogOut'
 
 export type ButtonProps<T extends ElementType = 'button'> = {
   as?: T
   children: ReactNode
-  className?: string
   fullWidth?: boolean
   icon?: boolean
-  onClick?: () => void
-  variant?: 'primary' | 'secondary' | 'default'
+  variant?: 'primary' | 'secondary'
 } & ComponentPropsWithoutRef<T>
 
 export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) => {
-  const {
-    as: Component = 'button',
-    children,
-    className,
-    fullWidth,
-    icon,
-    variant = 'default',
-    ...rest
-  } = props
+  const { as: Component = 'button', children, className, fullWidth, icon, variant, ...rest } = props
 
   return (
     <Component
@@ -32,7 +22,7 @@ export const Button = <T extends ElementType = 'button'>(props: ButtonProps<T>) 
       } ${className}`}
       {...rest}
     >
-      {icon && <SvgMicOutline className={s.ico} />}
+      {icon && <LogOut className={s.ico} />}
       {children}
     </Component>
   )

@@ -1,20 +1,37 @@
 import { Button } from '@/components/ui/button/button'
+import { TextField } from '@/components/ui/input/input'
+import { useState } from 'react'
 import { Typography } from '@/components/typography'
-import SearchInput from '@/components/ui/input/input'
 
 export function App() {
+  const [value, setValue] = useState('')
+  const clearValue = () => setValue('')
   return (
     <div
-      style={{ alignItems: 'center', display: 'flex', height: '100svh', justifyContent: 'center' }}
+      style={{
+        alignItems: 'center',
+        display: 'flex',
+        height: '100svh',
+        justifyContent: 'center',
+      }}
     >
       <div>
         <Button variant={'primary'} icon={true}>
-          <Typography theme={'light'} variant={'subtitle2'}>
-            Button primary
-          </Typography>
+          <Typography variant={'subtitle2'}>Button primary</Typography>
         </Button>
+
         <p></p>
-        <SearchInput />
+        <TextField
+          label={'Input'}
+          value={value}
+          placeholder={'Input'}
+          search
+          onClearClick={clearValue}
+          errorMessage={''}
+          onChange={e => {
+            setValue(e.currentTarget.value)
+          }}
+        />
       </div>
     </div>
   )
