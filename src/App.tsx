@@ -25,9 +25,9 @@ export function App() {
           label={'Input'}
           value={value}
           placeholder={'Input'}
-          search
           onClearClick={clearValue}
           errorMessage={''}
+          enablePassword
           onChange={e => {
             setValue(e.currentTarget.value)
           }}

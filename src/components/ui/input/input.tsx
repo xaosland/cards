@@ -1,39 +1,49 @@
 ﻿import {
+  ComponentProps,
+  KeyboardEvent,
   ReactNode,
   forwardRef,
   useState,
   HTMLInputTypeAttribute,
-  ComponentPropsWithRef,
 } from 'react'
-import s from './text-field.module.scss'
 
 import { useGetId } from './useGetId'
+import { clsx } from 'clsx'
+
+import s from './text-field.module.scss'
 import Search from '@/assets/icons/components/Search'
 import { Typography } from '@/components/typography'
+import Close from '@/assets/icons/components/Close'
 import Eye from '@/assets/icons/components/Eye'
 import EyeOff from '@/assets/icons/components/EyeOff'
-import Close from '@/assets/icons/components/Close'
 
 export type TextFieldProps = {
   errorMessage?: string
+  iconEnd?: ReactNode
+  iconStart?: ReactNode
   label?: ReactNode
   onClearClick?: () => void
+  onEnter?: (e: KeyboardEvent<HTMLInputElement>) => void
   search?: boolean
   value?: string
-  togglePassword?: boolean
-} & ComponentPropsWithRef<'input'>
+  enablePassword?: boolean
+} & ComponentProps<'input'>
 
-export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
+// НЕ УДАЛЯТЬ КОММЕНТ ПЕРЕД forwardRef - без него ломается tree shaking
+export const TextField = /* @__PURE__ */ forwardRef<HTMLInputElement, TextFieldProps>(
   (
     {
       className,
       errorMessage,
+      iconEnd,
+      iconStart,
       id,
       label,
       onClearClick,
+      onEnter,
       onKeyDown,
-      togglePassword,
       search,
+      enablePassword,
       ...rest
     },
     ref
@@ -41,29 +51,53 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
     const showError = !!errorMessage && errorMessage.length > 0
     const inputId = useGetId(id)
 
+    if (search) {
+      iconStart = <Search color={'var(--color-text-secondary)'} />
+    }
+
+    const classNames = {
+      clearButton: s.clearButton,
+      iconEnd: s.iconEnd,
+      iconStart: s.iconStart,
+      input: clsx(s.input, showError && s.error),
+      inputContainer: s.inputContainer,
+      root: clsx(s.box, className),
+    }
+
+    const isShowClearButton = search && onClearClick && rest?.value?.length! > 0
+
+    const dataIconStart = iconStart ? 'start' : ''
+    const dataIconEnd = iconEnd || isShowClearButton ? 'end' : ''
+    const dataIcon = dataIconStart + dataIconEnd
+
     const [inputType, setInputType] = useState<HTMLInputTypeAttribute>(() => {
-      if (togglePassword) {
+      if (enablePassword) {
         return 'password'
       } else {
         return 'text'
       }
     })
-
-    const isShowClearButton = rest?.value?.length! > 0
     const handleChangePasswordType = () => {
       setInputType(prev => (prev === 'text' ? 'password' : 'text'))
     }
     return (
-      <div>
+      <div className={classNames.root}>
         {label && (
-          <Typography theme={'light'} variant={'subtitle2'}>
+          <Typography as={'label'} variant={'body2'}>
             {label}
           </Typography>
         )}
-        <div className={s.inputContainer}>
-          <input className={s.input} id={inputId} ref={ref} type={inputType} {...rest} />
-
-          {togglePassword && (
+        <div className={classNames.inputContainer}>
+          {!!iconStart && <span className={classNames.iconStart}>{iconStart}</span>}
+          <input
+            className={classNames.input}
+            data-icon={dataIcon}
+            id={inputId}
+            ref={ref}
+            type={inputType}
+            {...rest}
+          />
+          {enablePassword && (
             <button onClick={handleChangePasswordType} type={'button'} className={s.clearButton}>
               {inputType === 'text' ? (
                 <Eye className={s.iconEnd} />
@@ -72,22 +106,15 @@ export const TextField = forwardRef<HTMLInputElement, TextFieldProps>(
               )}
             </button>
           )}
-          {search && (
-            <>
-              <Search className={s.iconStart} />
-              {isShowClearButton && (
-                <button className={s.clearButton} onClick={onClearClick}>
-                  <Close className={s.iconEnd} />
-                </button>
-              )}
-            </>
+          {isShowClearButton && (
+            <button className={classNames.clearButton} onClick={onClearClick} type={'button'}>
+              {<Close color={'var(--color-border-input-active)'} />}
+            </button>
           )}
-          {errorMessage && (
-            <Typography className={s.errorLabel} variant={'error'}>
-              {errorMessage}
-            </Typography>
-          )}
+          {!!iconEnd && <span className={classNames.iconEnd}>{iconEnd}</span>}
         </div>
+
+        {showError && <Typography variant={'error'}>{errorMessage}</Typography>}
       </div>
     )
   }
